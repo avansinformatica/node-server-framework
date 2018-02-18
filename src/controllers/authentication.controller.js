@@ -8,7 +8,6 @@ module.exports = {
 
     register(req, res, next) {
         logger.info('Register called');
-        logger.debug(req.body);
 
         if (!req.body.name || req.body.name === undefined) {
             const error = new Error('Name is missing in request body.')
@@ -40,11 +39,11 @@ module.exports = {
                     'email': req.body.email
                 })
                 .then(result => {
-                    logger.debug('Got result: ' + result);
                     if (result.length > 0) {
                         const error = new Error('Email address already exists.')
-                        logger.error(error.toString())
-                        next(error);
+                        logger.error(error.toString());
+                        // next(error);
+                        throw error;
                     } else {
                         logger.debug('Saving new user.');
                         return user.save();

@@ -35,7 +35,11 @@ const RecipeSchema = new Schema({
         name: String,
         amount: Number,
         serving: String
-    }]
+    }],
+    price: {
+        value: Number,
+        valuta: String
+    }
 });
 
 const Recipe = mongoose.model('recipe', RecipeSchema);
@@ -44,9 +48,9 @@ const Recipe = mongoose.model('recipe', RecipeSchema);
 // Genereer dummy data, maar alleen als collectie leeg is.
 //
 const item = new Recipe({
-    name: 'Tasty Avans Pizza',
+    name: 'Tasty Pizza',
     description: {
-        short: 'Vers van de server!',
+        short: 'Vers uit de oven!',
         long: 'Erg lekker recept. Moet je proberen!'
     },
     nutrition: {
@@ -68,21 +72,30 @@ const item = new Recipe({
         }
     },
     steps: [
-        'eerst doe je dit',
-        'Dan doe je dat',
-        'dan is het klaar'
+        'Maak eerst de bodem.',
+        'Wanneer de bodem klaar is leg je de overige ingrediënten op de pizza.',
+        'Even in de oven.',
+        'Dan is je pizza klaar!'
     ],
     imagePath: 'http://lorempixel.com/400/200/food/',
     ingredients: [{
-        name: 'Server Burger',
+        name: 'Salami',
         amount: 2,
         serving: 'stuks'
     }, {
-        name: 'Mongo Tomaten',
+        name: 'Tomaten',
         amount: 5,
         serving: 'stuks'
-    }]
+    }],
+    price: {
+        value: 7.50,
+        valuta: 'euro'
+    }
 });
+
+
+
+
 
 
 Recipe.find({})
