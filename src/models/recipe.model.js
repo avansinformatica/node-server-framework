@@ -3,30 +3,87 @@ const Schema = mongoose.Schema;
 
 const RecipeSchema = new Schema({
     name: String,
-    description: String,
+    description: {
+        _id: false,
+        short: String,
+        long: String
+    },
+    nutrition: {
+        fat: {
+            value: Number,
+            measure: String
+        },
+        sugar: {
+            value: Number,
+            measure: String
+        },
+        protein: {
+            value: Number,
+            measure: String
+        },
+        fiber: {
+            value: Number,
+            measure: String
+        }
+    },
     imagePath: String,
+    steps: [
+        String
+    ],
     ingredients: [{
         _id: false,
         name: String,
-        amount: Number
+        amount: Number,
+        serving: String
     }]
 });
 
 const Recipe = mongoose.model('recipe', RecipeSchema);
 
-// Voeg dummy item toe, maar alleen als collectie leeg is.
+//
+// Genereer dummy data, maar alleen als collectie leeg is.
+//
 const item = new Recipe({
     name: 'Tasty Avans Pizza',
-    description: 'Vers van de server!',
-    imagePath: 'http://www.picserver.org/pictures/pizza01-lg.jpg',
+    description: {
+        short: 'Vers van de server!',
+        long: 'Erg lekker recept. Moet je proberen!'
+    },
+    nutrition: {
+        fat: {
+            value: 3,
+            measure: 'gram'
+        },
+        sugar: {
+            value: 3,
+            measure: 'gram'
+        },
+        protein: {
+            value: 3,
+            measure: 'gram'
+        },
+        fiber: {
+            value: 3,
+            measure: 'gram'
+        }
+    },
+    steps: [
+        'eerst doe je dit',
+        'Dan doe je dat',
+        'dan is het klaar'
+    ],
+    imagePath: 'http://lorempixel.com/400/200/food/',
     ingredients: [{
         name: 'Server Burger',
-        amount: 2
+        amount: 2,
+        serving: 'stuks'
     }, {
         name: 'Mongo Tomaten',
-        amount: 5
+        amount: 5,
+        serving: 'stuks'
     }]
 });
+
 
 Recipe.find({})
     .then((result) => result.length === 0 ? item.save() : null)
