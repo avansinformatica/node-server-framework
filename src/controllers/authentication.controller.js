@@ -23,10 +23,7 @@ module.exports = {
             next(error);
         } else {
             const apikey = hat();
-            logger.debug('Generated api key ' + apikey);
-
             const password = bcrypt.hashSync(req.body.password, 2);
-
             const user = new User({
                 'name': req.body.name,
                 'password': password,
@@ -42,7 +39,6 @@ module.exports = {
                     if (result.length > 0) {
                         const error = new Error('Email address already exists.')
                         logger.error(error.toString());
-                        // next(error);
                         throw error;
                     } else {
                         logger.debug('Saving new user.');
@@ -67,7 +63,6 @@ module.exports = {
     login(req, res, next) {
         let password = req.body.password;
         let email = req.body.email;
-        logger.debug(email, password);
         let msg;
 
         User.findOne({
