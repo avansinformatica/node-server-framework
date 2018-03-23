@@ -11,7 +11,7 @@ technologies.push(new Technology(
 ));
 technologies.push(new Technology(
   'Tweede item',
-  'Hier de beschrijving',
+  'Hier nog een beschrijving',
   12,
   'http://www.image.com'
 ));
