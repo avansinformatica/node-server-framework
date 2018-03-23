@@ -28,13 +28,17 @@ routes(app);
 
 // Handle all errors
 app.use((err, req, res, next) => {
+    logger.error(err.toString());
     const error = {
         message: err.message,
         code: err.code,
         name: err.name,
-        status: err.status
+        datetime: new Date().toUTCString(),
+        url: req.url
     }
-    res.status(401).json(error).end();
+    res.status(500).json({
+        error: error
+    }).end();
 });
 
 app.use('*', (req, res, next) => {
